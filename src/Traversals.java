@@ -103,6 +103,7 @@ public class Traversals {
         if (current.left != null) queue.add(current.left); 
         if (current.right != null) queue.add(current.right); 
     }
+
   }
 
   /**
@@ -129,6 +130,7 @@ public class Traversals {
     uniqueVal(node.left, result);
     uniqueVal(node.right, result);
   }
+
   /**
    * Determines whether there is at least one root-to-leaf path in the tree
    * where each successive node's value is strictly greater than the previous node's value.
@@ -138,7 +140,20 @@ public class Traversals {
    * @return true if there exists a strictly increasing root-to-leaf path, false otherwise
    */
   public static boolean hasStrictlyIncreasingPath(TreeNode<Integer> node) {
-    return false;
+
+    if(node == null) return false;
+    
+    return hasStrictlyIncHelper(node, Integer.MIN_VALUE);
+  }
+
+  public static boolean hasStrictlyIncHelper(TreeNode<Integer> node, int result) {
+    if(node == null) return false;
+
+    if(node.value <= result) return false;
+
+    if(node.left == null && node.right == null) return true;
+
+    return hasStrictlyIncHelper(node.left, node.value) || hasStrictlyIncHelper(node.right, node.value);
   }
 
   // OPTIONAL CHALLENGE
@@ -152,10 +167,10 @@ public class Traversals {
    * @param <T>   the type of values stored in the trees
    * @return true if the trees have the same shape, false otherwise
    */
+
   public static <T> boolean haveSameShape(TreeNode<T> nodeA, TreeNode<T> nodeB) {
     return false;
   }
-
 
   // OPTIONAL CHALLENGE
   // Very challenging!
